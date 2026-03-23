@@ -5,8 +5,8 @@ using UnityEngine;
 public class PoolBullet : Singleton<PoolBullet>
 {
     [SerializeField] private BulletTurret prefab;
-    [SerializeField] private int sizePool;
-    [SerializeField] private int numEmergercy;
+    [SerializeField] private int sizePool=50;
+    [SerializeField] private int numEmergercy=20;
     private Queue<BulletTurret> pool = new Queue<BulletTurret>();
     protected override void Awake()
     {
