@@ -13613,22 +13613,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: UiManager
       objectReference: {fileID: 0}
-    - target: {fileID: 3454877233783649617, guid: 2c9ca6ba98e0cf14ba78e96ba62431b5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8656748273829439436, guid: 2c9ca6ba98e0cf14ba78e96ba62431b5,
-        type: 3}
-      propertyPath: minutes
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8656748273829439436, guid: 2c9ca6ba98e0cf14ba78e96ba62431b5,
-        type: 3}
-      propertyPath: seconds
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8656748273829439436, guid: 2c9ca6ba98e0cf14ba78e96ba62431b5,
+    - target: {fileID: 4052335778529023862, guid: 2c9ca6ba98e0cf14ba78e96ba62431b5,
         type: 3}
       propertyPath: textTimer
       value: 

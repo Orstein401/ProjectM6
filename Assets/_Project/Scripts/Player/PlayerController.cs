@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
 
         if (direction != Vector3.zero) CalculateRotation();
     }
-
     private void GetInput()
     {
         horizontal = Input.GetAxis("Horizontal");

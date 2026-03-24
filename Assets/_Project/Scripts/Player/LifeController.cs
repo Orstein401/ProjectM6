@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-
-//Non è una interFace visto che ho deciso che solo il player abbia la vita
 public class LifeController : MonoBehaviour
 {
     [SerializeField] private float hp = 200;
@@ -15,7 +13,6 @@ public class LifeController : MonoBehaviour
         hp = maxHp;
         healthBar.Invoke(hp, maxHp);
     }
-
     public void TakeDamage(float damage)
     {
         hp -= damage;
@@ -25,7 +22,6 @@ public class LifeController : MonoBehaviour
         }
         healthBar.Invoke(hp, maxHp);
     }
-
     public void DiePlayer()
     {
         deathUi.Invoke();

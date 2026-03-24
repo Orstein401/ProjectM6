@@ -5,6 +5,7 @@ public class Coin : MonoBehaviour
     [Header("MovementCoin")]
     [SerializeField] private float speed;
     [SerializeField] private float amplitude;
+    [SerializeField] private float speedRotation;
 
     [Header("Value and Count")]
     [SerializeField] private UnityEvent<int> coinCount;
@@ -29,6 +30,7 @@ public class Coin : MonoBehaviour
         float move = transform.position.y - Mathf.Sin(angle) * amplitude * Time.deltaTime;
 
         transform.position = new Vector3(transform.position.x, move, transform.position.z);
+        transform.Rotate(Vector3.up*speedRotation*Time.deltaTime);
     }
 
     private void AddCoin()

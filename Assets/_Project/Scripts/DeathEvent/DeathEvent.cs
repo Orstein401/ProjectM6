@@ -1,7 +1,7 @@
 using UnityEngine;
 public class DeathEvent : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.TryGetComponent<LifeController>(out var player))
         {

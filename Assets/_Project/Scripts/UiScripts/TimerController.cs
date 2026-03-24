@@ -1,46 +1,35 @@
+using System;
 using TMPro;
 using UnityEngine;
-
-public class UiTimer : MonoBehaviour
+public class TimerController : MonoBehaviour
 {
     [Header("Time")]
     [SerializeField] private int minutes;
     [SerializeField] private float seconds;
     private bool isOver = false;
 
-    [Header("Ui")]
-    [SerializeField] private TextMeshProUGUI textTimer;
+    public static event Action<int,float> Timer;
 
-    [Header("Componets")]
-    private UiEvents gameOver;
-
-    private void Awake()
-    {
-        gameOver = GetComponent<UiEvents>();
-    }
     private void Update()
     {
-
-        if (!isOver) Timer();
+      if (!isOver) Counter();
     }
-    private void Timer()
+    private void Counter()
     {
         seconds -= Time.deltaTime;
         if (minutes <= 0 && seconds <= 0)
         {
             isOver = true;
-            gameOver.StartDeathUi();
         }
-
         if (!isOver)
         {
             if (seconds <= 0)
             {
-                seconds = 60f - seconds;
+                seconds = 60f; //non ho fatto -seconds come suggerito perchè ho notato che qunado partiva faceva -*- diventando +, risultando 1,60.2
                 minutes -= 1;
             }
         }
-
-        textTimer.SetText($"{minutes}:{seconds:00}");
+        Timer?.Invoke(minutes, seconds);
     }
+
 }

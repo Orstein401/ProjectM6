@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class Turret : MonoBehaviour
 {
     [Header("Transform of reference")]

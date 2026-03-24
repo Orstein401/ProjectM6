@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  amplitude: 1
+  amplitude: 0.5
+  speedRotation: 100
   coinCount:
     m_PersistentCalls:
       m_Calls:
