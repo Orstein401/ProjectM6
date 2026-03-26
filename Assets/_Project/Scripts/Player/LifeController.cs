@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 public class LifeController : MonoBehaviour
@@ -5,13 +6,12 @@ public class LifeController : MonoBehaviour
     [SerializeField] private float hp = 200;
     [SerializeField] private float maxHp = 200;
 
-    [SerializeField] private UnityEvent<float, float> healthBar;
-    [SerializeField] private UnityEvent deathUi;
-
+    public static event Action<float, float> LifeBar;
+    [SerializeField] private UiEvents uiMananager;
     private void Start()
     {
         hp = maxHp;
-        healthBar.Invoke(hp, maxHp);
+        LifeBar?.Invoke(hp, maxHp);
     }
     public void TakeDamage(float damage)
     {
@@ -20,11 +20,11 @@ public class LifeController : MonoBehaviour
         {
             DiePlayer();
         }
-        healthBar.Invoke(hp, maxHp);
+        LifeBar?.Invoke(hp,maxHp);
     }
     public void DiePlayer()
     {
-        deathUi.Invoke();
+        uiMananager.StartDeathUi();
         Destroy(gameObject);
     }
 }

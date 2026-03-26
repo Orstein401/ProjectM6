@@ -7,12 +7,18 @@ public class UiCoin : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private int maxCoin;
-    [SerializeField] private UnityEvent eventsUi;
+    //[SerializeField] private UnityEvent eventsUi;
     private int currentCoin;
+    private UiEvents uiMangaer;
 
+    private void Awake()
+    {
+        uiMangaer=GetComponent<UiEvents>();
+    }
     private void Start()
     {
         textCoin.SetText($"{currentCoin}/{maxCoin}");
+        Coin.OnCoinTake += AddCoinToCounter;
     }
     public void AddCoinToCounter(int numCoin)
     {
@@ -20,12 +26,16 @@ public class UiCoin : MonoBehaviour
         textCoin.SetText($"{currentCoin}/{maxCoin}");
         CheckCoin();
     }
-
     private void CheckCoin()
     {
         if (currentCoin >= maxCoin)
         {
-            eventsUi.Invoke();
+           // eventsUi.Invoke();
+            uiMangaer.StartWinUi();
         }
+    }
+    private void OnDestroy()
+    {
+        Coin.OnCoinTake -= AddCoinToCounter;
     }
 }

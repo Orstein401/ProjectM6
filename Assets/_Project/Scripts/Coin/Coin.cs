@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 public class Coin : MonoBehaviour
@@ -8,14 +9,13 @@ public class Coin : MonoBehaviour
     [SerializeField] private float speedRotation;
 
     [Header("Value and Count")]
-    [SerializeField] private UnityEvent<int> coinCount;
     [SerializeField] private int valueCoin;
+    public static event Action<int> OnCoinTake;
 
     private void Update()
     {
         MoveCoin();
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<PlayerController>(out var player))
@@ -32,9 +32,8 @@ public class Coin : MonoBehaviour
         transform.position = new Vector3(transform.position.x, move, transform.position.z);
         transform.Rotate(Vector3.up*speedRotation*Time.deltaTime);
     }
-
     private void AddCoin()
     {
-        coinCount.Invoke(valueCoin);
+        OnCoinTake?.Invoke(valueCoin);
     }
 }
