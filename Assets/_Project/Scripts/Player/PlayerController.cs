@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("Component")]
     private Rigidbody rb;
     private Camera cam;
+    private PlayerAnimation anim;
 
     [Header("Parametres")]
     [Header("Speed")]
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         if (rb == null) rb = GetComponent<Rigidbody>();
+        // anim = GetComponent<PlayerAnimation>();
         cam = Camera.main;
         numJump = 1;
     }
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
         GetInput();
         CalculateVelocity();
         IsGrounded();
+        //   Animation();
 
     }
     private void FixedUpdate()
@@ -66,14 +69,7 @@ public class PlayerController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         run = Input.GetKey(KeyCode.LeftShift);
-        if (run)
-        {
-            currentSpeed = maxSpeed;
-        }
-        else
-        {
-            currentSpeed = minSpeed;
-        }
+        currentSpeed = run ? maxSpeed : minSpeed;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
@@ -97,7 +93,6 @@ public class PlayerController : MonoBehaviour
     {
         if (jump && (isGrounded || numJump < maxNumJump))
         {
-
             velocity = new Vector3(direction.x * airSpeed, jumpForce, direction.z * airSpeed);
             lastVelocity = velocity;
             numJump++;
@@ -120,6 +115,27 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawSphere(checkerGround.position, radiusChecker);
         Gizmos.color = Color.red;
+    }
+
+    public void Animation()
+    {
+        bool IsWalking = direction != Vector3.zero;
+        bool isRunning = run && IsWalking;
+        if (jump)
+        {
+            anim.SetAnimationJump(jump);
+            return;
+        }
+        if (isRunning)
+        {
+            anim.SetAnimationRun(isRunning);
+            return;
+        }
+        if (IsWalking)
+        {
+            anim.SetAnimationWalk(IsWalking);
+            return;
+        }
     }
 }
 
