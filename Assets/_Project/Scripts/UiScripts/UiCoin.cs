@@ -7,7 +7,6 @@ public class UiCoin : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI textCoin;
     [SerializeField] private int maxCoin;
-    //[SerializeField] private UnityEvent eventsUi;
     private int currentCoin;
     private UiEvents uiMangaer;
 
@@ -30,7 +29,6 @@ public class UiCoin : MonoBehaviour
     {
         if (currentCoin >= maxCoin)
         {
-           // eventsUi.Invoke();
             uiMangaer.StartWinUi();
         }
     }

@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         if (rb == null) rb = GetComponent<Rigidbody>();
-        // anim = GetComponent<PlayerAnimation>();
+        anim = GetComponentInChildren<PlayerAnimation>();
         cam = Camera.main;
         numJump = 1;
     }
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         GetInput();
         CalculateVelocity();
         IsGrounded();
-        //   Animation();
+        anim.UpdateStates(direction,run,isGrounded);
 
     }
     private void FixedUpdate()
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         run = Input.GetKey(KeyCode.LeftShift);
         currentSpeed = run ? maxSpeed : minSpeed;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             jump = true;
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
             velocity = new Vector3(direction.x * airSpeed, jumpForce, direction.z * airSpeed);
             lastVelocity = velocity;
             numJump++;
+            anim.TriggerJump();
             jump = false;
         }
     }
@@ -115,27 +117,6 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawSphere(checkerGround.position, radiusChecker);
         Gizmos.color = Color.red;
-    }
-
-    public void Animation()
-    {
-        bool IsWalking = direction != Vector3.zero;
-        bool isRunning = run && IsWalking;
-        if (jump)
-        {
-            anim.SetAnimationJump(jump);
-            return;
-        }
-        if (isRunning)
-        {
-            anim.SetAnimationRun(isRunning);
-            return;
-        }
-        if (IsWalking)
-        {
-            anim.SetAnimationWalk(IsWalking);
-            return;
-        }
     }
 }
 

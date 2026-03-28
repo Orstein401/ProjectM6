@@ -12,6 +12,7 @@ public class Coin : MonoBehaviour
     [SerializeField] private int valueCoin;
     public static event Action<int> OnCoinTake;
 
+    [SerializeField] private SoundID soundID = SoundID.Coin;
     private void Update()
     {
         MoveCoin();
@@ -20,6 +21,7 @@ public class Coin : MonoBehaviour
     {
         if (other.TryGetComponent<PlayerController>(out var player))
         {
+            AudioManager.Instance.PlaySound(soundID);
             AddCoin();
             Destroy(gameObject);
         }

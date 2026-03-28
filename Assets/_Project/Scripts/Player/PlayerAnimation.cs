@@ -8,31 +8,22 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private string walk = "IsWalk";
     [SerializeField] private string run = "IsRun";
     [SerializeField] private string jump = "IsJump";
-    [SerializeField] private string ground = "ISGround";
-    [SerializeField] private string death = "IsDeath";
+    [SerializeField] private string ground = "IsGround";
     private void Awake()
     {
-        playerAnim = GetComponentInChildren<Animator>();
+        playerAnim = GetComponent<Animator>();
     }
+    public void UpdateStates(Vector3 direction, bool isRun, bool isGrounded)
+    {
+        bool isWalking = direction != Vector3.zero;
+        bool isRunning = isWalking && isRun;
 
-    public void SetAnimationWalk(bool IsWalk)
-    {
-        playerAnim.SetBool(walk, IsWalk);
+        playerAnim.SetBool(ground, isGrounded);
+        playerAnim.SetBool(walk, isWalking);
+        playerAnim.SetBool(run, isRunning);
     }
-    public void SetAnimationRun(bool IsRun)
+    public void TriggerJump()
     {
-        playerAnim.SetBool(run, IsRun);
-    }
-    public void SetAnimationJump(bool IsJump)
-    {
-        playerAnim.SetBool(jump, IsJump);
-    }
-    public void SetAnimationGround(bool IsGround)
-    {
-        playerAnim.SetBool(death, IsGround);
-    }
-    public void SetAnimationDeath(bool IsDeath)
-    {
-        playerAnim.SetBool(death, IsDeath);
+        playerAnim.SetTrigger(jump);
     }
 }

@@ -8,6 +8,11 @@ public class LifeController : MonoBehaviour
 
     public static event Action<float, float> LifeBar;
     [SerializeField] private UiEvents uiMananager;
+    private PlayerAnimation anim;
+    private void Awake()
+    {
+        anim=GetComponent<PlayerAnimation>();
+    }
     private void Start()
     {
         hp = maxHp;
@@ -25,6 +30,5 @@ public class LifeController : MonoBehaviour
     public void DiePlayer()
     {
         uiMananager.StartDeathUi();
-        Destroy(gameObject);
     }
 }

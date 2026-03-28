@@ -19,6 +19,11 @@ public class Turret : MonoBehaviour
     [SerializeField] private float speedProjectile;
     [SerializeField] private float damageProjectile;
 
+    private AudioSource sourceAudio;
+    private void Awake()
+    {
+        sourceAudio=GetComponent<AudioSource>();
+    }
     private void Update()
     {
         if (player != null)
@@ -34,7 +39,6 @@ public class Turret : MonoBehaviour
                 }
             }
         }
-
     }
     private void Shoot(Vector3 direction)
     {
@@ -42,6 +46,8 @@ public class Turret : MonoBehaviour
         bullet.transform.position = firePoint.position;
         bullet.SetDamage(damageProjectile);
         bullet.SetDirectionRotationAndSpeed(direction, speedProjectile);
+
+        AudioManager.Instance.PlaySound(sourceAudio,SoundID.Shoot);
     }
     private void RotateTurret()
     {
